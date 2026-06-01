@@ -1,0 +1,20 @@
+name = "Gdstk"
+uuid = "0b497127-6718-483d-abea-78a7efbb802b"
+authors = ["MadebyDaris <daris.idirene@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+BinaryBuilder = "12aac903-9f7c-5d81-afc2-d9565ea332ae"
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+Qhull_jll = "784f63db-0788-585a-bace-daefebcd302b"
+Zlib_jll = "83775a58-1f1d-513f-b197-d71354ab007a"
+gdstk_jll = "422db8d9-1093-5d15-9159-3e4b0a372358"
+
+[compat]
+BinaryBuilder = "0.6.6"
+CxxWrap = "0.17.5"
+Libdl = "1.11.0"
+Qhull_jll = "10008.0.1004"
+Zlib_jll = "1.2.13"
+gdstk_jll = "0.9.55"
