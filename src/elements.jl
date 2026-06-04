@@ -1,28 +1,90 @@
-# --- Factory ---
+"""
+    make_tag(layer, datatype)
+
+Creates a GDSII layout tag given a `layer` and `datatype`.
+"""
 make_tag(layer, datatype) = _Raw.make_tag(UInt32(layer), UInt32(datatype))
+
+"""
+    get_layer(tag::UInt64)
+
+Extracts the layer number from a GDSII tag.
+"""
 get_layer(tag::UInt64)    = _Raw.get_layer(tag)
+
+"""
+    get_type(tag::UInt64)
+
+Extracts the datatype or texttype from a GDSII tag.
+"""
 get_type(tag::UInt64)     = _Raw.get_type(tag)
 
+"""
+    make_vec2(x::Real, y::Real)
+
+Creates a 2D vector `Vec2` with the specified `x` and `y` coordinates.
+"""
 make_vec2(x::Real, y::Real) = Vec2(_Raw.make_vec2(Float64(x), Float64(y)))
 
+"""
+    rectangle(x0::Real, y0::Real, x1::Real, y1::Real, layer, datatype)
+
+Creates a rectangular polygon defined by its opposite corners `(x0, y0)` and `(x1, y1)`.
+
+# Examples
+```julia
+using Gdstk
+rect = rectangle(0.0, 0.0, 10.0, 10.0, 1, 0)
+```
+"""
 rectangle(x0::Real, y0::Real, x1::Real, y1::Real, layer, datatype) =
     Polygon(_Raw.rectangle(Float64(x0), Float64(y0), Float64(x1), Float64(y1), UInt32(layer), UInt32(datatype)))
 
+"""
+    cross_shape(cx::Real, cy::Real, full_size::Real, arm_width::Real, layer, datatype)
+
+Creates a cross-shaped polygon centered at `(cx, cy)` with a given `full_size` and `arm_width`.
+"""
 cross_shape(cx::Real, cy::Real, full_size::Real, arm_width::Real, layer, datatype) =
     Polygon(_Raw.cross_shape(Float64(cx), Float64(cy), Float64(full_size), Float64(arm_width), UInt32(layer), UInt32(datatype)))
 
+"""
+    regular_polygon(cx::Real, cy::Real, side_length::Real, sides::Integer, rotation::Real, layer, datatype)
+
+Creates a regular polygon with a given number of `sides`, centered at `(cx, cy)`.
+"""
 regular_polygon(cx::Real, cy::Real, side_length::Real, sides::Integer, rotation::Real, layer, datatype) =
     Polygon(_Raw.regular_polygon(Float64(cx), Float64(cy), Float64(side_length), UInt64(sides), Float64(rotation), UInt32(layer), UInt32(datatype)))
 
+"""
+    ellipse(cx::Real, cy::Real, rx::Real, ry::Real, irx::Real, iry::Real, a0::Real, a1::Real, tol::Real, layer, datatype)
+
+Creates an elliptical polygon. Supports creating arcs and rings by configuring inner radii and angles.
+"""
 ellipse(cx::Real, cy::Real, rx::Real, ry::Real, irx::Real, iry::Real, a0::Real, a1::Real, tol::Real, layer, datatype) =
     Polygon(_Raw.ellipse(Float64(cx), Float64(cy), Float64(rx), Float64(ry), Float64(irx), Float64(iry), Float64(a0), Float64(a1), Float64(tol), UInt32(layer), UInt32(datatype)))
 
+"""
+    racetrack(cx::Real, cy::Real, straight_length::Real, radius::Real, inner_radius::Real, vertical::Bool, tol::Real, layer, datatype)
+
+Creates a racetrack-shaped polygon, consisting of a straight segment capped with semicircles.
+"""
 racetrack(cx::Real, cy::Real, straight_length::Real, radius::Real, inner_radius::Real, vertical::Bool, tol::Real, layer, datatype) =
     Polygon(_Raw.racetrack(Float64(cx), Float64(cy), Float64(straight_length), Float64(radius), Float64(inner_radius), vertical, Float64(tol), UInt32(layer), UInt32(datatype)))
 
+"""
+    make_flexpath(x::Real, y::Real, width::Real, tolerance::Real, layer, datatype)
+
+Creates a flexible path `FlexPath` with initial coordinate `(x, y)` and an initial `width`.
+"""
 make_flexpath(x::Real, y::Real, width::Real, tolerance::Real, layer, datatype) =
     FlexPath(_Raw.make_flexpath(Float64(x), Float64(y), Float64(width), Float64(tolerance), UInt32(layer), UInt32(datatype)))
 
+"""
+    make_robustpath(x::Real, y::Real, width::Real, tolerance::Real, max_evals::Integer, layer, datatype)
+
+Creates a robust layout path `RobustPath` starting at `(x, y)` with an initial `width`.
+"""
 make_robustpath(x::Real, y::Real, width::Real, tolerance::Real, max_evals::Integer, layer, datatype) =
     RobustPath(_Raw.make_robustpath(Float64(x), Float64(y), Float64(width), Float64(tolerance), UInt64(max_evals), UInt32(layer), UInt32(datatype)))
 

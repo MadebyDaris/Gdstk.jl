@@ -7,7 +7,7 @@ using Gdstk
 println("=== Example 03: Shape Constructors ===\n")
 
 # Layer / datatype for all shapes (GDSII convention)
-LAYER = UInt32(1)
+LAYER = UInt32(1) 
 DTYPE = UInt32(0)
 
 # --- Rectangle ---
