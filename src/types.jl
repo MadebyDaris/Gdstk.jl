@@ -29,10 +29,10 @@ _unwrap_ptr(fp::FlexPath)   = _to_ptr(fp.ptr)
 _unwrap_ptr(rp::RobustPath) = _to_ptr(rp.ptr)
 _unwrap_ptr(c::Cell)        = _to_ptr(c.ptr)
 
-_wrap_array(::Type{Polygon}, raw)   = [Polygon(CxxPtr{_Raw.Polygon}(p)) for p in raw]
-_wrap_array(::Type{Cell}, raw)      = [Cell(CxxPtr{_Raw.Cell}(p)) for p in raw]
-_wrap_array(::Type{Label}, raw)     = [Label(CxxPtr{_Raw.Label}(p)) for p in raw]
-_wrap_array(::Type{Reference}, raw) = [Reference(CxxPtr{_Raw.Reference}(p)) for p in raw]
+_wrap_array(::Type{Polygon}, raw)   = [Polygon(CxxPtr{C.Polygon}(p)) for p in raw]
+_wrap_array(::Type{Cell}, raw)      = [Cell(CxxPtr{C.Cell}(p)) for p in raw]
+_wrap_array(::Type{Label}, raw)     = [Label(CxxPtr{C.Label}(p)) for p in raw]
+_wrap_array(::Type{Reference}, raw) = [Reference(CxxPtr{C.Reference}(p)) for p in raw]
 
-_unwrap_polygon_array(arr) = Ptr{_Raw.Polygon}[p.ptr.cpp_object for p in arr]
-_unwrap_cell_array(arr)    = Ptr{_Raw.Cell}[c.ptr.cpp_object for c in arr]
+_unwrap_polygon_array(arr) = Ptr{C.Polygon}[p.ptr.cpp_object for p in arr]
+_unwrap_cell_array(arr)    = Ptr{C.Cell}[c.ptr.cpp_object for c in arr]

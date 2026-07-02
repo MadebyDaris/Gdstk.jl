@@ -1,10 +1,19 @@
 module Gdstk
 
+# 1. THE QUARANTINE ZONE
+# The linter essentially ignores this box, which is what we want.
+module C
+    using gdstk_jll
+    using CxxWrap
+    @wrapmodule(gdstk_jll.get_libgdstk_wrapper_path)
+    function __init__()
+        @initcxx
+    end
+end
+
+using .C
 using CxxWrap
 using gdstk_jll
-
-include("raw.jl")
-import ._Raw
 
 include("types.jl")
 include("elements.jl")
@@ -38,9 +47,5 @@ export hello_gds
 export get_points, bounding_box, gds_units
 export union_polygons, intersect_polygons, subtract_polygons, xor_polygons
 export slice_polygon
-
-function __init__()
-    _Raw.__init__()
-end
 
 end # module Gdstk
